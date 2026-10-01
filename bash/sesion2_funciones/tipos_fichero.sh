@@ -1,7 +1,21 @@
 #!/bin/bash
-contar_por_ext(){
 
-    find ~/"$1" -maxdepth 1 -type f -name "*.$2" | wc -l
+contar_por_ext() {
+    local carpeta="$1"
+    local ext="$2"
+    
+  
+    local cantidad
+    cantidad=$(find "$carpeta" -maxdepth 1 -type f -name "*.$ext" | wc -l)
+    
+    echo "$cantidad"
 }
 
-contar_por_ext datos csv
+
+directorio="$HOME/datos"
+
+
+for extension in log txt csv; do
+    total=$(contar_por_ext "$directorio" "$extension")
+    echo "$extension  $total"
+done
